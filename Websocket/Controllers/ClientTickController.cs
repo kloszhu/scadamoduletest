@@ -4,26 +4,24 @@ using Websocket.BackGround;
 namespace Websocket.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class TickController:ControllerBase
+    public class ClientTickController : ControllerBase
     {
+        private readonly BeatHeartClient _client;
 
-        private readonly BeatHeartServer beatHeart;
-
-        public TickController(BeatHeartServer beatHeart)
+        public ClientTickController(BeatHeartClient client)
         {
-            this.beatHeart = beatHeart;
+            _client = client;
         }
-
         [HttpGet]
         public IActionResult Start()
         {
-            beatHeart.Start();
+            _client.Start();
             return Ok();
         }
         [HttpGet]
         public IActionResult Stop()
         {
-            beatHeart.Stop();
+            _client.Stop();
             return Ok();
         }
     }

@@ -22,6 +22,7 @@ namespace Websocket.BackGround
             this._options = options;
             this.serviceScopeFactory = serviceScopeFactory;
             stoppingToken = CancellationToken.None;
+            Status = false;
         }
 
         public void Start()

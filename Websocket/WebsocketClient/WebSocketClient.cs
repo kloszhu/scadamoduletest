@@ -19,10 +19,16 @@ namespace WebsocketClient
         private IOptions<WebsocketModel> _options;
         private readonly CacheVote _cacheVote;
         private CancellationToken cancellationToken;
+        private int MsgConnect;
         public WebSocketClient(IOptions<WebsocketModel> options,CacheVote cacheVote)
         {
             _options = options;
             _cacheVote = cacheVote;
+            MsgConnect = -1;
+        }
+        public int GetMsgConnect()
+        {
+            return MsgConnect;
         }
 
         public async Task Start(ConnectHost connect)
@@ -39,6 +45,7 @@ namespace WebsocketClient
         public void Stop()
         {
             cancellationToken = new CancellationToken(true);
+            clientWebSocket?.Dispose();
         }
 
         public async Task ConnectAndSendReceiveAsync()
@@ -52,6 +59,7 @@ namespace WebsocketClient
 
                 var receiveBuffer = new ArraySegment<byte>(new byte[1024]);
                 var result = await clientWebSocket.ReceiveAsync(receiveBuffer, cancellationToken);
+                MsgConnect++;
                 if (result.MessageType == WebSocketMessageType.Text)
                 {
                     var message = System.Text.Encoding.UTF8.GetString(receiveBuffer.Array, 0, result.Count);
@@ -96,7 +104,8 @@ namespace WebsocketClient
                     Console.WriteLine("Received message: " + message);
                 }
 
-            }            
+            }
+            MsgConnect = -1;
         }
 
         public async Task BitHeart(CancellationToken cancellationToken)

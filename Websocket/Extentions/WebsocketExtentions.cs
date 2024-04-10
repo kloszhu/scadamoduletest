@@ -2,8 +2,10 @@
 using System.Net.WebSockets;
 using Websocket.BackGround;
 using Websocket.Cache;
+using Websocket.Manager;
+using WebsocketClient;
 
-namespace Websocket.Manager
+namespace Websocket.Extentions
 {
     public static class WebsocketExtentions
     {
@@ -15,7 +17,9 @@ namespace Websocket.Manager
             services.AddSingleton<WebSocketConnectionManager>();
             services.AddSingleton<WebsocketMessageManager>();
             services.AddSingleton<BeatHeartServer>();
+            services.AddSingleton<WebSocketClient>();
             services.AddSingleton<CacheVote>();
+            services.AddSingleton< BeatHeartClient >();
             return services;
         }
 
@@ -27,7 +31,7 @@ namespace Websocket.Manager
             };
             app.UseWebSockets(webSocketOptions);
             var service = app.Services.GetService<WebSocketHandler>();
-            app.Use((c, m) => service.HandleWebSocket(c,m, ControllerName));
+            app.Use((c, m) => service.HandleWebSocket(c, m, ControllerName));
         }
 
 

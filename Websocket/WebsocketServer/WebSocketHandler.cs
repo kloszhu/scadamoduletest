@@ -26,7 +26,7 @@ namespace Websocket.Manager
             _options = options;
         }
         private int index = 0;
-        public async Task HandleWebSocket(HttpContext context, Func<Task> n, string name)
+        public async Task HandleWebSocket(HttpContext context, Func<Task> TaskRun, string name)
         {
             context.Request.EnableBuffering();
             if (context.Request.Path == name)
@@ -74,7 +74,7 @@ namespace Websocket.Manager
                 _connectionManager.RemoveSocket(socketId);
                 _logger.LogInformation($"WebSocket 连接关闭 with ID {socketId}");
             }
-            n();
+            TaskRun();
         }
 
         public async Task<string?> ReceiveMessageAsync(WebSocket webSocket)
