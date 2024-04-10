@@ -1,0 +1,2 @@
+﻿def GetName():
+    return ["stuObj"].Name

@@ -1,0 +1,129 @@
+﻿{
+  "flowName": "abc",
+  "nodeList": [
+    {
+      "id": "3ga0wc3pd",
+      "name": "设备",
+      "type": "device",
+      "left": "96px",
+      "top": "735px",
+      "ico": "devicesvg",
+      "state": "success",
+      "iconPosition": "right"
+    },
+    {
+      "id": "z3ta73usfx",
+      "name": "数据清洗",
+      "type": "dataQx",
+      "left": "14.9375px",
+      "top": "865.1196899414062px",
+      "ico": "dataQxsvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "25l2jsxgja",
+      "name": "数据计算",
+      "type": "over",
+      "left": "226.9375px",
+      "top": "867.1196899414062px",
+      "ico": "dataJssvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "gkp4lmn9hf",
+      "name": "数据存储",
+      "type": "storage",
+      "left": "-8.0625px",
+      "top": "1004.1196899414062px",
+      "ico": "dataCcsvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "tg4oq4u3i",
+      "name": "格式转换",
+      "type": "format",
+      "left": "227px",
+      "top": "927px",
+      "ico": "gszhsvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "6bwuaj4c1c",
+      "name": "数据计算1",
+      "type": "over",
+      "left": "-9.0625px",
+      "top": "1127.1196899414062px",
+      "ico": "dataJssvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "6yaznj9in",
+      "name": "格式转换1",
+      "type": "format",
+      "left": "227px",
+      "top": "984px",
+      "ico": "gszhsvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "shddjlelk9",
+      "name": "循环",
+      "type": "for",
+      "left": "132.9375px",
+      "top": "1055.1196899414062px",
+      "ico": "xhsvg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "zzn5hnfap",
+      "name": "数据存储1",
+      "type": "storage",
+      "left": "354.9375px",
+      "top": "1066.1196899414062px",
+      "ico": "dataCcsvg",
+      "state": "success",
+      "iconPosition": "all"
+    }
+  ],
+  "lineList": [
+    {
+      "from": "3ga0wc3pd",
+      "to": "z3ta73usfx"
+    },
+    {
+      "from": "3ga0wc3pd",
+      "to": "25l2jsxgja"
+    },
+    {
+      "from": "z3ta73usfx",
+      "to": "gkp4lmn9hf"
+    },
+    {
+      "from": "25l2jsxgja",
+      "to": "tg4oq4u3i"
+    },
+    {
+      "from": "gkp4lmn9hf",
+      "to": "6bwuaj4c1c"
+    },
+    {
+      "from": "tg4oq4u3i",
+      "to": "6yaznj9in"
+    },
+    {
+      "from": "6yaznj9in",
+      "to": "shddjlelk9"
+    },
+    {
+      "from": "6yaznj9in",
+      "to": "zzn5hnfap"
+    }
+  ]
+}

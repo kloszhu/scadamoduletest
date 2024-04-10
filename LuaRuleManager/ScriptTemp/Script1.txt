@@ -1,0 +1,33 @@
+﻿-- 两个“--”代表注释
+WriteN("a1",12) -- a1.newvalue=12
+WriteR("a1",5)  --  a1.randomvalue=5
+local a2=ReadR("a2")  -- 临时变量保存a2
+WriteN("a3",a2)   --给a3赋值给a2
+-- 目前就扩展了这4个方法，也可以调用C#自己的方法
+local a4=ReadR("a4")
+if (a4>0.5) then
+WriteN("a5",0.1)
+elseif (a4>0.8) then
+WriteN("a5",0.2)
+else
+WriteN("a5",0.3)
+end
+-- 目前就扩展了这4个方法，也可以调用C#自己的方法
+
+function AbsAdd(itemname,value)
+	return clr.System.Math:Abs(ReadR("a7"))+value
+end
+
+WriteN("a7",AbsAdd("a7",123))
+
+-- while 因为模拟程序使用单进程，while循环会导致程序卡主
+-- while(WriteR("a8")>0.5)
+-- do
+--   WriteN("a8",1)
+-- end
+
+--for 循环
+local a = {9, 10}
+for i, v in ipairs(a) do
+    WriteN("a"..v, i)
+end 

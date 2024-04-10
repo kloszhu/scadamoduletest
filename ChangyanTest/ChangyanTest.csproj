@@ -1,0 +1,112 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography">
+      <HintPath>YSAI.Opc.Pack\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.Core">
+      <HintPath>YSAI.Opc.Pack\ClearScript.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.V8">
+      <HintPath>YSAI.Opc.Pack\ClearScript.V8.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.V8.ICUData">
+      <HintPath>YSAI.Opc.Pack\ClearScript.V8.ICUData.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.Windows">
+      <HintPath>YSAI.Opc.Pack\ClearScript.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.Windows.Core">
+      <HintPath>YSAI.Opc.Pack\ClearScript.Windows.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects">
+      <HintPath>YSAI.Opc.Pack\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>YSAI.Opc.Pack\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.SystemEvents">
+      <HintPath>YSAI.Opc.Pack\Microsoft.Win32.SystemEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>YSAI.Opc.Pack\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Bindings.Https">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Bindings.Https.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Client">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Configuration">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Core">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Gds.Client.Common">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Gds.Client.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Gds.Server.Common">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Gds.Server.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Security.Certificates">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Security.Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="Opc.Ua.Server">
+      <HintPath>YSAI.Opc.Pack\Opc.Ua.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>YSAI.Opc.Pack\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console">
+      <HintPath>YSAI.Opc.Pack\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>YSAI.Opc.Pack\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration.ConfigurationManager">
+      <HintPath>YSAI.Opc.Pack\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>YSAI.Opc.Pack\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Formats.Asn1">
+      <HintPath>YSAI.Opc.Pack\System.Formats.Asn1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Ports">
+      <HintPath>YSAI.Opc.Pack\System.IO.Ports.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData">
+      <HintPath>YSAI.Opc.Pack\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions">
+      <HintPath>YSAI.Opc.Pack\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Extensions">
+      <HintPath>YSAI.Opc.Pack\System.Windows.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="YSAI.Core">
+      <HintPath>YSAI.Opc.Pack\YSAI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="YSAI.Log">
+      <HintPath>YSAI.Opc.Pack\YSAI.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="YSAI.Model">
+      <HintPath>YSAI.Opc.Pack\YSAI.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="YSAI.Opc">
+      <HintPath>YSAI.Opc.Pack\YSAI.Opc.dll</HintPath>
+    </Reference>
+    <Reference Include="YSAI.Unility">
+      <HintPath>YSAI.Opc.Pack\YSAI.Unility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

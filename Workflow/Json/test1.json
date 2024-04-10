@@ -1,0 +1,154 @@
+﻿{
+  "nodeList": [
+    {
+      "id": "0yz9tkxate",
+      "name": "设备",
+      "type": "device",
+      "left": "20.9375px",
+      "top": "37.33332824707031px",
+      "ico": "device|svg",
+      "state": "success",
+      "iconPosition": "right"
+    },
+    {
+      "id": "fybpen548",
+      "name": "数据清洗",
+      "type": "dataQx",
+      "left": "250px",
+      "top": "92px",
+      "ico": "dataQx|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "npylnd46a",
+      "name": "数据聚合",
+      "type": "polymerization",
+      "left": "57px",
+      "top": "233px",
+      "ico": "dataAggregation|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "jn6s0d2rvf",
+      "name": "条件分支",
+      "type": "branch",
+      "left": "473px",
+      "top": "87px",
+      "ico": "tjfz|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "227vru5eo",
+      "name": "格式转换",
+      "type": "format",
+      "left": "52px",
+      "top": "154px",
+      "ico": "gszh|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "3s2s5qull",
+      "name": "数据计算",
+      "type": "over",
+      "left": "277px",
+      "top": "161px",
+      "ico": "dataJs|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "zi11i81o9w",
+      "name": "数据存储",
+      "type": "storage",
+      "left": "493px",
+      "top": "158px",
+      "ico": "dataCc|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "b6v61375x",
+      "name": "脚本处理",
+      "type": "script",
+      "left": "247px",
+      "top": "35px",
+      "ico": "jbcl|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "32xy7k4p09",
+      "name": "json解析",
+      "type": "json",
+      "left": "49px",
+      "top": "86px",
+      "ico": "jsonJx|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "1p2ziyuqst",
+      "name": "循环",
+      "type": "for",
+      "left": "459.9375px",
+      "top": "34.33332824707031px",
+      "ico": "xh|svg",
+      "state": "success",
+      "iconPosition": "all"
+    },
+    {
+      "id": "l2to3pubjp",
+      "name": "数据流转",
+      "type": "dataLz",
+      "left": "308.9375px",
+      "top": "223.3333282470703px",
+      "ico": "dataLz|svg",
+      "state": "success",
+      "iconPosition": "left"
+    },
+    {
+      "id": "bnbtfviud",
+      "name": "设备控制",
+      "type": "deviceKz",
+      "left": "552.9375px",
+      "top": "231.3333282470703px",
+      "ico": "deviceControl|svg",
+      "state": "success",
+      "iconPosition": "left"
+    },
+    {
+      "id": "48sipb0afi",
+      "name": "设备控制1",
+      "type": "deviceKz",
+      "left": "86.9375px",
+      "top": "311.333px",
+      "ico": "deviceControl|svg",
+      "state": "success",
+      "iconPosition": "left"
+    },
+    {
+      "id": "uohlq2sfta",
+      "name": "消息推送",
+      "type": "msgPush",
+      "left": "388.9375px",
+      "top": "301.3333282470703px",
+      "ico": "xxPush|svg",
+      "state": "success",
+      "iconPosition": "left"
+    }
+  ],
+  "lineList": [
+    {
+      "from": "0yz9tkxate",
+      "to": "b6v61375x"
+    },
+    {
+      "from": "b6v61375x",
+      "to": "1p2ziyuqst"
+    }
+  ]
+}

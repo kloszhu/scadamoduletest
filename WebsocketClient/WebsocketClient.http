@@ -1,0 +1,6 @@
+@WebsocketClient_HostAddress = http://localhost:5160
+
+GET {{WebsocketClient_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
