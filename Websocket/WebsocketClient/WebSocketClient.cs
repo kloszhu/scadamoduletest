@@ -39,6 +39,7 @@ namespace WebsocketClient
         public void Stop()
         {
             cancellationToken = new CancellationToken(true);
+            clientWebSocket.Dispose();
         }
 
         public async Task ConnectAndSendReceiveAsync()
