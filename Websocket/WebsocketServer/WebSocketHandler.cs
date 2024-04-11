@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Net.WebSockets;
 using System.Text;
+using Websocket.BackGround;
 using Websocket.Cache;
 using Websocket.Model;
 
@@ -37,11 +38,12 @@ namespace Websocket.Manager
                 }
                 var webSocket = await context.WebSockets.AcceptWebSocketAsync();
                 var socketId = _connectionManager.AddSocket(webSocket);
-
+                
                 _logger.LogInformation($"WebSocket 已连接 with ID {socketId}");
 
                 while (webSocket.State == WebSocketState.Open)
                 {
+                    
                     var message = await ReceiveMessageAsync(webSocket);
                     if (message != null)
                     {

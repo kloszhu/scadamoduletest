@@ -32,6 +32,8 @@ namespace Websocket.Extentions
             app.UseWebSockets(webSocketOptions);
             var service = app.Services.GetService<WebSocketHandler>();
             app.Use((c, m) => service.HandleWebSocket(c, m, ControllerName));
+            Thread.Sleep(1000);
+           
         }
 
 

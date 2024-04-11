@@ -22,6 +22,7 @@ namespace Websocket
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddWebSocketManager();
+            builder.Services.AddHostedService<BeatHeartClient>();
             builder.Services.Configure<WebsocketModel>(builder.Configuration.GetSection("WebsocketConfig"));
             builder.Services.Configure<KestrelServerOptions>(options =>
             {
@@ -38,6 +39,13 @@ namespace Websocket
             //}
             app.UseAuthorization();
             app.MapWebSocketManager("/hub");
+           
+            var bgserver = app.Services.GetService<BeatHeartServer>();
+            bgserver.Start();
+
+            var bgclient = app.Services.GetService<BeatHeartClient>();
+            bgclient.BitHeart();
+
             app.MapControllers();
             app.Run();
         }

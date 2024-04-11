@@ -6,7 +6,7 @@ using WebsocketClient;
 
 namespace Websocket.BackGround
 {
-    public class BeatHeartClient
+    public class BeatHeartClient:BackgroundService
     {
         public WebSocketClient Client;
         private CancellationToken cancellationToken;
@@ -34,6 +34,10 @@ namespace Websocket.BackGround
             _options = options;
         }
 
+        public async Task BitHeart() {
+          await  Client.BitHeart();
+        }
+
         public Task Excute()
         {
             Task.Run(async () =>
@@ -42,13 +46,16 @@ namespace Websocket.BackGround
                 {
                     if (Client.GetMsgConnect() == 0)
                     {//客户端未开始
-                        Client.Start(_options.Value.Main);
+                       await Client.Start(_options.Value.Main);
                     }
                     if (Client.GetMsgConnect() == -1)
                     {
                         index++;
-                        if (index > 10)
+                        await Console.Out.WriteLineAsync(index.ToString());
+                        await Client.Start(_options.Value.Main);
+                        if (index > 2)
                         {
+                            
                             if (_cache.GetVote() != null)
                             {
                                 await Client.Start(_cache.GetVote());
@@ -60,6 +67,15 @@ namespace Websocket.BackGround
             });
             return Task.CompletedTask;
 
+        }
+
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            while (!stoppingToken.IsCancellationRequested)
+            {
+               await BitHeart();
+            }
         }
     }
 }

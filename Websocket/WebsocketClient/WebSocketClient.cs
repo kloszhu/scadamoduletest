@@ -20,11 +20,13 @@ namespace WebsocketClient
         private readonly CacheVote _cacheVote;
         private CancellationToken cancellationToken;
         private int MsgConnect;
-        public WebSocketClient(IOptions<WebsocketModel> options,CacheVote cacheVote)
+        private bool IsConnect;
+        public WebSocketClient(IOptions<WebsocketModel> options, CacheVote cacheVote)
         {
             _options = options;
             _cacheVote = cacheVote;
             MsgConnect = -1;
+            ReConnect = 0;
         }
         public int GetMsgConnect()
         {
@@ -33,13 +35,13 @@ namespace WebsocketClient
 
         public async Task Start(ConnectHost connect)
         {
-            if (clientWebSocket!=null)
+            if (clientWebSocket != null)
             {
                 clientWebSocket.Dispose();
             }
             clientWebSocket = new ClientWebSocket();
             Uri = new Uri($"ws://{connect.Host}:{connect.Port}/hub");
-            cancellationToken =CancellationToken.None;
+            cancellationToken = CancellationToken.None;
             await ConnectAndSendReceiveAsync();
         }
         public void Stop()
@@ -47,11 +49,13 @@ namespace WebsocketClient
             cancellationToken = new CancellationToken(true);
             clientWebSocket?.Dispose();
         }
-
+        private int ReConnect = 0;
         public async Task ConnectAndSendReceiveAsync()
         {
             // Connect to the server
+            IsConnect = false;
             await clientWebSocket.ConnectAsync(Uri, cancellationToken);
+            IsConnect = true;
             Console.WriteLine("Connected to Server");
             // Receive messages from server
             while (clientWebSocket.State == WebSocketState.Open)
@@ -63,22 +67,14 @@ namespace WebsocketClient
                 if (result.MessageType == WebSocketMessageType.Text)
                 {
                     var message = System.Text.Encoding.UTF8.GetString(receiveBuffer.Array, 0, result.Count);
-                    var pkg= JsonConvert.DeserializeObject<MsgPack>(message);
+                    var pkg = JsonConvert.DeserializeObject<MsgPack>(message);
                     switch (pkg.action)
                     {
                         case ActionEnum.ServerBitHeart:
-                            var pack = new MsgPack { action= ActionEnum.ClintBitHeart };
-                            pack.Msg = JsonConvert.SerializeObject(new BitHeart
-                            { 
-                                Host = _options.Value.Main.Host,
-                                Port = _options.Value.Main.Port,
-                                Ts = DateTime.Now
-                            });
-                            var buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(pack));
-                            clientWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, cancellationToken);
+
                             break;
                         case ActionEnum.ClintBitHeart:
-                            var packs=new MsgPack { action=ActionEnum.ClintBitHeart };
+                            var packs = new MsgPack { action = ActionEnum.ClintBitHeart };
                             packs.Msg = JsonConvert.SerializeObject(_options.Value.Local);
                             var buffers = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(packs));
                             clientWebSocket.SendAsync(new ArraySegment<byte>(buffers), WebSocketMessageType.Text, true, cancellationToken);
@@ -86,6 +82,7 @@ namespace WebsocketClient
                         case ActionEnum.ServerSelect:
                             break;
                         case ActionEnum.Vote:
+                            await Console.Out.WriteLineAsync(pkg.Msg);
                             _cacheVote.SetVote(vote: JsonConvert.DeserializeObject<ConnectHost>(pkg.Msg));
                             break;
                         case ActionEnum.ClientSelect:
@@ -108,13 +105,59 @@ namespace WebsocketClient
             MsgConnect = -1;
         }
 
-        public async Task BitHeart(CancellationToken cancellationToken)
+        public async Task BitHeart()
         {
-            // Send message to server
-            string sendMessage = "Hello, Server!";
-            var sendBuffer = System.Text.Encoding.UTF8.GetBytes(sendMessage);
-            await clientWebSocket.SendAsync(new ArraySegment<byte>(sendBuffer), WebSocketMessageType.Text, true, cancellationToken);
-            Console.WriteLine("Message sent to server");
+            var _ = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    if (clientWebSocket == null)
+                    {
+
+                        Task.Run(async () =>
+                        {
+                            await Start(_options.Value.Main);
+                            Thread.Sleep(1000);
+                        });
+
+                    }
+                    if (!IsConnect)
+                    {
+                        ReConnect++;
+                        if (ReConnect > 3)
+                        {
+
+                            ReConnect = 0;
+                            if (_cacheVote.GetVote() == null)
+                            {
+                                await Start(_options.Value.Local);
+                            }
+                            else
+                            {
+                                await Start(_cacheVote.GetVote());
+                            }
+
+                        }
+                    }
+                    else
+                    {
+
+                        var pack = new MsgPack { action = ActionEnum.ClintBitHeart };
+                        pack.Msg = JsonConvert.SerializeObject(new BitHeart
+                        {
+                            Host = _options.Value.Local.Host,
+                            Port = _options.Value.Local.Port,
+                            Ts = DateTime.Now
+                        });
+                        var buffer = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(pack));
+                        await clientWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, cancellationToken);
+                        Console.WriteLine("Message sent to server");
+                    }
+
+
+                }
+            });
+
         }
         protected async Task ExecuteAsync()
         {
@@ -124,7 +167,7 @@ namespace WebsocketClient
             }
             else
             {
-                await BitHeart(cancellationToken);
+                await BitHeart();
             }
             Thread.Sleep(1000);
         }
