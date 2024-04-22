@@ -6,6 +6,7 @@ using OrleansGrain;
 using System.IO;
 using Orleans.Persistence.Redis;
 Console.WriteLine("Hello, Server!");
+
 var host = new SiloHostBuilder().UseLocalhostClustering()
    
     .AddSimpleMessageStreamProvider("SMSProvider")

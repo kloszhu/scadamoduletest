@@ -3,6 +3,7 @@ using Orleans.Streams;
 using OrleansIGrain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace OrleansGrain
     [ImplicitStreamSubscription("RANDOMDATA")]
     public class ReceiverGrain : Grain, IRandomReceiver
     {
-
+        IAsyncStream<AddressValue> stream;
         public override async Task OnActivateAsync()
         {
 
@@ -27,7 +28,7 @@ namespace OrleansGrain
             var streamProvider = GetStreamProvider("SMSProvider");
 
             // Get the reference to a stream
-            var stream = streamProvider.GetStream<AddressValue>(guid, "RANDOMDATA");
+           stream = streamProvider.GetStream<AddressValue>(guid, "RANDOMDATA");
 
             // Set our OnNext method to the lambda which simply prints the data.
             // This doesn't make new subscriptions, because we are using implicit
@@ -41,6 +42,10 @@ namespace OrleansGrain
             await base.OnActivateAsync();
         }
 
+        public override Task OnDeactivateAsync()
+        {
+            return base.OnDeactivateAsync();
+        }
 
     }
 }
