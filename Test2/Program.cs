@@ -3,6 +3,7 @@
 using Newtonsoft.Json;
 using OpcDaNetApi.Hda;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Test2;
 using YSAI.Core.extendMethod;
 using YSAI.Model.data;
@@ -33,7 +34,7 @@ var ins = new YSAI.Opc.ua.client.OpcUaClientOperate(new YSAI.Opc.ua.client.OpcUa
     ServerUrl = "opc.tcp://192.168.2.78:49320"
 });
 RMQ.INIT();
-Queue<IEnumerable<AddressValueSimplify>> queue = new Queue<IEnumerable<AddressValueSimplify>>();
+ConcurrentQueue<IEnumerable<AddressValueSimplify>> queue = new    ConcurrentQueue<IEnumerable<AddressValueSimplify>>();
 object locks = new object();
 ins.On();
 ins.OnDataEvent += Ins_OnDataEvent;
@@ -44,14 +45,16 @@ ins.Subscribe(new YSAI.Model.data.Address
 
 });
 while (true) {
-    while (queue.Any())
+
+    
+    while (queue.TryDequeue(out IEnumerable<AddressValueSimplify> data))
     {
-        lock (locks)
-        {
-            RMQ.Send("abc", JsonConvert.SerializeObject(queue.Dequeue()));
-        }
-       
+        string json= data.ToJson();
+        Console.WriteLine(json);
+        RMQ.Send("abc", json);
     }
+
+    Thread.Sleep(10);
 }
 
 void Ins_OnDataEvent(object? sender, YSAI.Model.data.EventDataResult e)
@@ -59,7 +62,7 @@ void Ins_OnDataEvent(object? sender, YSAI.Model.data.EventDataResult e)
     //lock (locks)
     //{
     //    var simplifies = e.GetRData<ConcurrentDictionary<string, AddressValue>>()?.GetSimplifyArray();
-    //    RMQ.Send("abc", JsonConvert.SerializeObject(simplifies));
+    //RMQ.Send("abc", JsonConvert.SerializeObject(simplifies));
     //}
     IEnumerable<AddressValueSimplify> simplifies = e.GetRData<ConcurrentDictionary<string, AddressValue>>()?.GetSimplifyArray();
     queue.Enqueue(simplifies);

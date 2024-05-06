@@ -14,7 +14,8 @@ var _netmq = new NetMQOperate(new NetMQData.Basics
 while (true)
 {
     var stat = _netmq.On();
-    if (stat.Message == "[ NetMQOperate ]( On 异常 ) : 已连接")
+    var abc= _netmq.GetStatus();
+    if (abc.Status == true)
     {
         Console.WriteLine("Server 连接成功");
         _netmq.Produce("hello", "你好");
