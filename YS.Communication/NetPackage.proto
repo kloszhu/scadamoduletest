@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+package YS.Communication;
+
+message NetPackage{
+	int32 handle=1;
+	oneof other_property{
+		BeatHeart heart= 2;
+	}
+}
+
+message BeatHeart{
+	int64 tempspan=1;
+	string localinfo=2;
+}

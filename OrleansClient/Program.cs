@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Orleans;
+using Orleans.Configuration;
 using Orleans.Hosting;
 using OrleansIGrain;
 using System.Collections.Concurrent;
@@ -13,7 +14,7 @@ public static class StaticVariable
 {
     public static String SimpleMessageStream = "OrleansStream";
 }
-internal class Program
+public class Program
 {
 
     private static int i = 0;
@@ -21,7 +22,17 @@ internal class Program
     private static async Task<IClusterClient> OrleansRun()
     {
         var builder = new ClientBuilder()
-            .UseLocalhostClustering()
+                .UseConsulClustering(options =>
+                {
+                    options.KvRootFolder = "OrleansCluster";
+                    options.AclClientToken = "abc";
+                    options.Address = new Uri("http://127.0.0.1:8600");
+                })
+                .Configure<ClusterOptions>(option =>
+                 {
+                        option.ClusterId = "hello";
+                        option.ServiceId = "hello";
+                 })
             .AddSimpleMessageStreamProvider(StaticVariable.SimpleMessageStream)
            .Build();
         await builder.Connect();
@@ -43,7 +54,6 @@ internal class Program
     {
         await Register();
         Console.WriteLine("Hello, Client!");
-
         while (true)
         {
             await Console.Out.WriteLineAsync($"进入发布时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff")}");
@@ -86,10 +96,8 @@ internal class Program
         //}
 
         //int AllSum = 0;
-
         //Task.Run(() =>
         //{
-
         //    while (true)
         //    {
         //        while (queueData.TryDequeue(out (IEnumerable<AddressValueSimplify> data, string index) qd))
@@ -116,8 +124,6 @@ internal class Program
         //        AllSum = 0;
         //        Console.WriteLine("订阅总数清零");
         //    }
-
-
         //}
     }
     Task DealData(EventDataResult e)
@@ -153,9 +159,5 @@ internal class Program
 
         return Task.CompletedTask;
     }
-    private static void backgroundWorker1_DoWork(object? sender, DoWorkEventArgs e)
-    {
 
-
-    }
 }
