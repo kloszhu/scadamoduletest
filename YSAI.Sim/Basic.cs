@@ -33,6 +33,7 @@ namespace YSAI.Sim
         /// 模拟类型
         /// </summary>
         public SimulateType SimType { get;  set; }= SimulateType.Stay;
+        public string SN { get; set; }
 
         //public Address Addresses { get; set; }
 

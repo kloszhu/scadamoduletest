@@ -6,10 +6,10 @@ using YSAI.Model.data;
 using YSAI.Model.@interface;
 namespace YSAI.Sim
 {
-    public class SimOperate :DaqAbstract<SimOperate,Basic>,  IDaq
+    public class SimOperate : DaqAbstract<SimOperate, Basic>, IDaq
     {
 
-        public int duration {  get; set; }
+        public int duration { get; set; }
         public SimulateType SimType { get; set; }
 
         private Dictionary<string, AddressValue> Data;
@@ -25,7 +25,7 @@ namespace YSAI.Sim
                 switch (item.Value.AddressDataType)
                 {
                     case Model.@enum.DataType.Bool:
-                        item.Value.Value = Convert.ToBoolean(index%2);
+                        item.Value.Value = Convert.ToBoolean(index % 2);
                         break;
                     case Model.@enum.DataType.String:
                         item.Value.Value = index.ToString();
@@ -34,10 +34,10 @@ namespace YSAI.Sim
                         item.Value.Value = GenerateRandomString(1);
                         break;
                     case Model.@enum.DataType.Decimal:
-                        item.Value.Value = Convert.ToDecimal( index);
+                        item.Value.Value = Convert.ToDecimal(index);
                         break;
                     case Model.@enum.DataType.Double:
-                        item.Value.Value = (double) index;
+                        item.Value.Value = (double)index;
                         break;
                     case Model.@enum.DataType.Float:
                     case Model.@enum.DataType.Single:
@@ -89,7 +89,7 @@ namespace YSAI.Sim
                 item.Value.Value = index;
             }
         }
-     
+
         private void RandomSim()
         {
 
@@ -99,16 +99,16 @@ namespace YSAI.Sim
                 switch (item.Value.AddressDataType)
                 {
                     case Model.@enum.DataType.Bool:
-                        item.Value.Value =Convert.ToBoolean( Random.Shared.Next(0,2));
+                        item.Value.Value = Convert.ToBoolean(Random.Shared.Next(0, 2));
                         break;
                     case Model.@enum.DataType.String:
-                        item.Value.Value = GenerateRandomString(Random.Shared.Next(1,50));
+                        item.Value.Value = GenerateRandomString(Random.Shared.Next(1, 50));
                         break;
                     case Model.@enum.DataType.Char:
                         item.Value.Value = GenerateRandomString(1);
                         break;
                     case Model.@enum.DataType.Decimal:
-                        item.Value.Value = Convert.ToDecimal(100000000*Random.Shared.NextDouble());
+                        item.Value.Value = Convert.ToDecimal(100000000 * Random.Shared.NextDouble());
                         break;
                     case Model.@enum.DataType.Double:
                         item.Value.Value = Random.Shared.NextDouble();
@@ -125,7 +125,7 @@ namespace YSAI.Sim
                         item.Value.Value = Random.Shared.Next();
                         break;
                     case Model.@enum.DataType.Int32:
-                        item.Value.Value = Convert.ToInt32( Random.Shared.Next());
+                        item.Value.Value = Convert.ToInt32(Random.Shared.Next());
                         break;
                     case Model.@enum.DataType.Uint:
                         item.Value.Value = Convert.ToUInt16(Random.Shared.Next());
@@ -136,7 +136,7 @@ namespace YSAI.Sim
                     case Model.@enum.DataType.Long:
                     case Model.@enum.DataType.Int64:
                     case Model.@enum.DataType.Ulong:
-                        
+
                     case Model.@enum.DataType.UInt64:
                         item.Value.Value = Convert.ToInt64(Random.Shared.Next());
                         break;
@@ -148,7 +148,7 @@ namespace YSAI.Sim
                         item.Value.Value = (short)Random.Shared.Next(1, 65535);
                         break;
                     case Model.@enum.DataType.DateTime:
-                        
+
                     case Model.@enum.DataType.Date:
                         item.Value.Value = RandomDateTime();
                         break;
@@ -161,7 +161,7 @@ namespace YSAI.Sim
                     default:
                         break;
                 }
-                
+
             }
         }
 
@@ -198,7 +198,7 @@ namespace YSAI.Sim
 
         private CancellationToken cancellationToken;
 
-        public  string GenerateRandomString(int length)
+        public string GenerateRandomString(int length)
         {
             Random random = new Random();
             char[] chars = new char[length];
@@ -251,13 +251,13 @@ namespace YSAI.Sim
             {
                 cancellationToken = new CancellationToken();
                 Data = new Dictionary<string, AddressValue>();
-               
                 duration = basics.Duration;
                 SimType = basics.SimType;
-              Task.Run(async () => {
+                Task.Run(async () =>
+                {
                     while (!cancellationToken.IsCancellationRequested)
                     {
-                      await Task.Delay(duration);
+                        await Task.Delay(duration);
                         switch (SimType)
                         {
                             case SimulateType.Random:
@@ -267,11 +267,11 @@ namespace YSAI.Sim
                                 OrderSim();
                                 break;
                         }
-                      OnDataEventHandler(this, new EventDataResult { RData = Data });
+                        OnDataEventHandler(this, new EventDataResult { RData = Data });
                     }
                 }, cancellationToken);
 
-                return Break(SN,true);
+                return Break(SN, true);
             }
             catch (Exception ex)
             {
@@ -283,7 +283,7 @@ namespace YSAI.Sim
             string SN = Depart(System.Reflection.MethodBase.GetCurrentMethod().Name);
             try
             {
-                cancellationToken= new CancellationToken(true);
+                cancellationToken = new CancellationToken(true);
                 return Break(SN, true);
             }
             catch (Exception ex)
@@ -296,7 +296,7 @@ namespace YSAI.Sim
             string SN = Depart(System.Reflection.MethodBase.GetCurrentMethod().Name);
             try
             {
-                ConcurrentDictionary<string,AddressValue> param=new ConcurrentDictionary<string,AddressValue>();
+                ConcurrentDictionary<string, AddressValue> param = new ConcurrentDictionary<string, AddressValue>();
                 foreach (var item in address.AddressArray)
                 {
                     param.TryAdd(item.AddressName, Data[item.AddressName]);
@@ -335,7 +335,7 @@ namespace YSAI.Sim
                     {
                         AddressName = item.AddressName,
                         AddressDataType = item.AddressDataType,
-                        SN = item.SN,
+                        SN =string.IsNullOrEmpty( item.SN)?Guid.NewGuid().ToString():item.SN,
                         Quality = 1,
                         Time = DateTime.Now.ToString(),
                         Value = null,

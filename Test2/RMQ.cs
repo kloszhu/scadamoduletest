@@ -13,7 +13,7 @@ namespace Test2
         {
             rmq = new YSAI.RabbitMQ.RabbitMQOperate(new YSAI.RabbitMQ.RabbitMQData.Basics
             {
-                ExChangeName = "exchang",
+                ExChangeName = "hello",
                 HostName = "192.168.2.221",
                 UserName = "ys",
                 Password = "ys123456",

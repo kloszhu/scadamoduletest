@@ -51,7 +51,7 @@ while (true) {
     {
         string json= data.ToJson();
         Console.WriteLine(json);
-        RMQ.Send("abc", json);
+        RMQ.Send("aaaaa", json);
     }
 
     Thread.Sleep(10);

@@ -8,13 +8,13 @@ Console.WriteLine("Hello, World!");
 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.log");
 
 YSAI.RabbitMQ.RabbitMQOperate rmq = new YSAI.RabbitMQ.RabbitMQOperate(new YSAI.RabbitMQ.RabbitMQData.Basics { 
- ExChangeName= "exchang", HostName="192.168.2.221", UserName="ys", 
+ ExChangeName= "hello", HostName="192.168.2.221", UserName="ys", 
     Password="ys123456", Port=5672, RT=YSAI.Model.@enum.ResponseType.Content
 });
 //5Wtest
 rmq.On();
 rmq.OnDataEvent += Rmq_OnDataEvent;
-rmq.Subscribe("abc");
+rmq.Subscribe("aaaaa");
 void Rmq_OnDataEvent(object? sender, YSAI.Model.data.EventDataResult e)
 {
 
