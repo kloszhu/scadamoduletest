@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="NetPackage.proto" />
+	  <None Remove="socket\Models\DistHostInfo.cs~RF1a93ce6.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+	  <Compile Include="obj\Debug\net6.0\NetPackage.cs" />
+	  <Compile Include="obj\Debug\net6.0\Ys.AutoSwitch.AssemblyInfo.cs" />
+	  <Compile Include="obj\Debug\net6.0\Ys.AutoSwitch.GlobalUsings.g.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="obj\Debug\net6.0\Ys.AutoSwitch.csproj.FileListAbsolute.txt" />
+	  <Content Include="obj\project.assets.json" />
+	  <Content Include="obj\Ys.AutoSwitch.csproj.nuget.dgspec.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="obj\Debug\net6.0\da39a3ee5e6b4b0d_NetPackage.protodep" />
+	  <None Include="obj\Debug\net6.0\Ys.AutoSwitch.AssemblyInfoInputs.cache" />
+	  <None Include="obj\Debug\net6.0\Ys.AutoSwitch.assets.cache" />
+	  <None Include="obj\Debug\net6.0\Ys.AutoSwitch.csproj.AssemblyReference.cache" />
+	  <None Include="obj\Debug\net6.0\Ys.AutoSwitch.csproj.CoreCompileInputs.cache" />
+	  <None Include="obj\Debug\net6.0\Ys.AutoSwitch.GeneratedMSBuildEditorConfig.editorconfig" />
+	  <None Include="obj\project.nuget.cache" />
+	  <None Include="obj\Ys.AutoSwitch.csproj.nuget.g.props" />
+	  <None Include="obj\Ys.AutoSwitch.csproj.nuget.g.targets" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Google.Protobuf" Version="3.26.1" />
+	  <PackageReference Include="Google.Protobuf.Tools" Version="3.26.1" />
+	  <PackageReference Include="Mapster" Version="7.4.0" />
+
+	  <PackageReference Include="YSAI.NetMQ" Version="24.120.8278" />
+	<PackageReference Include="Grpc.Tools" Version="2.62.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	
+	</ItemGroup>
+
+
+
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\YS.Models\YS.Models.csproj" />
+		<ProjectReference Include="..\YS.Services\YS.Services.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="NetPackage.proto" GrpcServices="None" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Protobuf.MSBuild">
+      <HintPath>dll\Protobuf.MSBuild.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dll\Protobuf.MSBuild.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="obj\Debug\net6.0\refint\" />
+    <Folder Include="obj\Debug\net6.0\ref\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,69 @@
+﻿syntax = "proto3";
+
+package Ys.AutoSwitch.Proto;
+
+enum MsgType{
+	None=0;
+	PingType=1;
+	PongType=2;
+	PrepareBackupType=3;//选择的备用机信息
+	MasterDownType=4;//主机宕机
+	MasterOkType=5;//主机OK
+	BackupOnType=6;//备用机上
+	SwitchMasterType=7;//切换到主机
+	SwitchBackupType=8;//切换到备用机
+	TongBuType=9;//
+}
+
+message SwitchMsg{
+	 MsgType msgType=1;//类型
+	oneof other_property{
+		PingPackMSG Pingpack=2;//ping信息
+		PongPackMSG Pongpack=3;//Pong信息
+		PrepareBackupMSG PrepareBackup=4;//选择的备用机信息
+		TongBu TongBu=5;//同步
+	}
+}
+
+message PingPackMSG{
+	string UID=1;
+	string Host=2;
+	int32 Port=3;
+	int64 Ts=4;
+}
+
+message PongPackMSG{
+	string UID=1;
+	string Host=2;
+	int32 Port=3;
+	int64 Ts=4;
+}
+message PrepareBackupMSG{
+	string Host=1;
+	int32 Port=2;
+}
+message SwitchMaster{
+	string Host=1;
+	int32 Port=2;
+}
+message SwitchBackup{
+	string Host=1;
+	int32 Port=2;
+}
+
+message TongBu{
+	repeated ServerInfo ServerInfo=1;
+}
+
+message ServerInfo{
+	string Uid=1;
+	string Host=2;
+	int32  Port=3;
+	string Name=4;
+	string Code=5;
+	bool IsEnable=6;
+	int32 DeadBand=7;
+	int32 PingTime=8;
+	bool Status=9;
+	bool IsMain=10;
+}
